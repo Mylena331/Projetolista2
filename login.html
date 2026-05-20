@@ -1,100 +1,40 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+
 <meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Login</title>
 
-<style>
-
-body{
-font-family: Arial;
-background-color: #f2f2f2;
-display: flex;
-justify-content: center;
-}
-
-.container{
-width: 320px;
-background: white;
-padding: 25px;
-border-radius: 12px;
-margin-top: 60px;
-box-shadow: 0px 0px 10px #ccc;
-}
-
-h1{
-text-align: center;
-margin-bottom: 20px;
-}
-
-input, textarea, select{
-width: 100%;
-padding: 12px;
-margin-top: 10px;
-border-radius: 8px;
-border: 1px solid #ccc;
-box-sizing: border-box;
-}
-
-button{
-width: 100%;
-padding: 12px;
-margin-top: 15px;
-border: none;
-border-radius: 8px;
-background-color: #774caf;
-color: white;
-font-size: 16px;
-cursor: pointer;
-}
-
-button:hover{
-background-color: #774caf;
-}
-
-p{
-text-align: center;
-margin-top: 15px;
-}
-
-a{
-text-decoration: none;
-}
-
-.tarefa{
-border: 1px solid #ccc;
-padding: 12px;
-border-radius: 10px;
-margin-top: 15px;
-}
-
-</style>
+<link rel="stylesheet" href="style.css">
 
 </head>
+
 <body>
 
 <div class="container">
 
 <h1>Login</h1>
 
-<input type="email" placeholder="E-mail">
-<input type="password" placeholder="Senha">
+<input type="email" id="emailLogin" placeholder="E-mail">
 
-<button onclick="entrar()">Entrar</button>
+<input type="password" id="senhaLogin" placeholder="Senha">
 
-<p>
-Não possui conta?
-<a href="cadastro.html">Cadastrar</a>
-</p>
+<button onclick="login()">
+Entrar
+</button>
+
+<a href="cadastro.html">
+<button>
+Cadastro
+</button>
+</a>
 
 </div>
 
-<script>
-function entrar(){
-alert("Login realizado!");
-window.location.href = "index.html";
-}
-</script>
+<script src="login.js"></script>
 
 </body>
 </html>

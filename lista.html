@@ -3,71 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Lista de Tarefas</title>
-<style>
 
-body{
-font-family: Arial;
-background-color: #f2f2f2;
-display: flex;
-justify-content: center;
-}
-
-.container{
-width: 320px;
-background: white;
-padding: 25px;
-border-radius: 12px;
-margin-top: 60px;
-box-shadow: 0px 0px 10px #ccc;
-}
-
-h1{
-text-align: center;
-margin-bottom: 20px;
-}
-
-input, textarea, select{
-width: 100%;
-padding: 12px;
-margin-top: 10px;
-border-radius: 8px;
-border: 1px solid #ccc;
-box-sizing: border-box;
-}
-
-button{
-width: 100%;
-padding: 12px;
-margin-top: 15px;
-border: none;
-border-radius: 8px;
-background-color: #774caf;
-color: white;
-font-size: 16px;
-cursor: pointer;
-}
-
-button:hover{
-background-color: #774caf;
-}
-
-p{
-text-align: center;
-margin-top: 15px;
-}
-
-a{
-text-decoration: none;
-}
-
-.tarefa{
-border: 1px solid #ccc;
-padding: 12px;
-border-radius: 10px;
-margin-top: 15px;
-}
-
-</style>
+<link rel="stylesheet" href="style.css">
 
 </head>
 <body>
@@ -80,65 +17,7 @@ margin-top: 15px;
 
 </div>
 
-<script>
-
-let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
-
-function carregarTarefas(){
-
-let lista = document.getElementById("lista");
-
-lista.innerHTML = "";
-
-tarefas.forEach((tarefa, index) => {
-
-lista.innerHTML += `
-<div class="tarefa">
-
-<p><strong>Descrição:</strong> ${tarefa.descricao}</p>
-
-<p><strong>Status:</strong> ${tarefa.status}</p>
-
-<button onclick="editar(${index})">
-Atualizar
-</button>
-
-<button onclick="deletar(${index})">
-Deletar
-</button>
-
-</div>
-`;
-});
-}
-
-function deletar(index){
-
-tarefas.splice(index, 1);
-
-localStorage.setItem("tarefas", JSON.stringify(tarefas));
-
-carregarTarefas();
-}
-
-function editar(index){
-
-let novaDescricao = prompt("Nova descrição:");
-
-let novoStatus = prompt("Novo status:");
-
-tarefas[index].descricao = novaDescricao;
-
-tarefas[index].status = novoStatus;
-
-localStorage.setItem("tarefas", JSON.stringify(tarefas));
-
-carregarTarefas();
-}
-
-carregarTarefas();
-
-</script>
+<script src="lista.js"></script>
 
 </body>
 </html>
