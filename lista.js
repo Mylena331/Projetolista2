@@ -1,85 +1,125 @@
-const API = "https://localhost:7212/api";
+document.addEventListener("DOMContentLoaded", function () {
 
-async function carregarTarefas(){
+    fetch('https://localhost:7212/tarefa/atividade/', {
+        credentials: "include"
+    })
 
-let resposta = await fetch(`${API}/tarefas`, {
+    .then(response => response.json())
 
-method: "GET",
+    .then(data => {
 
-credentials: 'include'
-});
+        console.log(data);
 
-let tarefas = await resposta.json();
+        var resposta = document.getElementById("lista");
 
-let lista = document.getElementById("lista");
+        resposta.innerHTML = "<h4>Segue Lista de Tarefas</h4>";
 
-lista.innerHTML = "";
+       for (let i = 0; i < data.length; i++) {
 
-tarefas.forEach(tarefa => {
+    resposta.innerHTML += `
+   
+    <div>
 
-lista.innerHTML += `
+        Tarefa:
+       
+        <input
+            type="text"
+            id="Descricao${data[i].tarefa}"
+            value="${data[i].descricao}"
+        >
 
-<div class="tarefa">
+        status:
 
-<p>
-<strong>Descrição:</strong>
-${tarefa.descricao}
-</p>
+        <input
+            type="text"
+            id="Status${data[i].tarefa}"
+            value="${data[i].status}"
+        >
 
-<p>
-<strong>Status:</strong>
-${tarefa.status}
-</p>
+        <button onclick="apagarTarefa(${data[i].tarefa})">
+            apagar
+        </button>
 
-<button onclick="editar(${tarefa.id})">
-Atualizar
-</button>
+        <button onclick="editarReserva(${data[i].tarefa})">
+            editar
+        </button>
 
-<button onclick="deletar(${tarefa.id})">
-Deletar
-</button>
-
-</div>
-`;
-});
+    </div>
+   
+    `;
 }
 
-async function deletar(id){
-await fetch(`${API}/tarefas/${id}`, {
-method: "DELETE",
-credentials: 'include'
+        var nome = document.getElementById("nome");
+        nome.innerHTML = "Olá " + data[0].pessoa +
+        "    ";
+
+    });
+
 });
 
-carregarTarefas();
+function apagarTarefa(id) {
+
+    console.log(id);
+
+    fetch('https://localhost:7212/tarefa/Deletar/' + id, {
+
+        method: "DELETE",
+        credentials: "include"
+
+    })
+
+    .then(async response => {
+
+        console.log(response.status);
+
+        const texto = await response.text();
+
+        console.log(texto);
+
+        if(response.ok){
+            location.reload();
+        }
+
+    })
+
+    .catch(error => console.log(error));
+
 }
 
-async function editar(id){
 
-let novaDescricao = prompt("Nova descrição:");
 
-let novoStatus = prompt("Novo status:");
+function editarReserva(idTarefa) {
+console.log(idTarefa);
+    fetch('https://localhost:7212/tarefa/Atualizar/' + idTarefa, {
 
-let tarefa = {
+        method: 'PUT',
 
-descricao: novaDescricao,
+        credentials: 'include',
 
-status: novoStatus
-};
+        headers: {
+            'Content-Type': 'application/json',
+        },
 
-await fetch(`${API}/tarefas/${id}`, {
+        body: JSON.stringify({
 
-method: "PUT",
+            descricao: document.getElementById("Descricao"+idTarefa).value,
+            status:  document.getElementById("Status"+idTarefa).value
 
-headers: {
-"Content-Type": "application/json"
-},
+        }),
 
-credentials: 'include',
+    })
 
-body: JSON.stringify(tarefa)
-});
+    .then(response => response.text())
 
-carregarTarefas();
+ 
+
 }
 
-carregarTarefas();
+function logout() {
+    fetch('https://localhost:7212/pessoa/logout/', {
+        credentials: 'include' })
+        .then(response => {
+            console.log(response);
+            window.location.href = "login.html"
+        })
+}

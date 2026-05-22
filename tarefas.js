@@ -2,6 +2,7 @@ const API = "https://localhost:7212/Tarefa/Cadastrar";
 
 async function salvarTarefa(){
 
+
 let tarefa = {
 
 descricao: document.getElementById("descricao").value,
